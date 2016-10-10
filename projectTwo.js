@@ -1,7 +1,7 @@
 /**
  *   @author Thrasher, Isaac ()
  *   @version 0.0.3
- *   @summary Project 1 || created: 09.22.2016
+ *   @summary Project 2 || created: 09.22.2016
  *   @todo
  */
 
@@ -49,7 +49,6 @@ function setContinueResponse() {
 
 function setPolicyNumber() {
     policyNumber = Math.floor((Math.random() * 100) + 1);
-    //console.log(`\n Your policy number is \t${policyNumber}`);
 }
 
 function setLastName() {
@@ -61,21 +60,34 @@ function setFirstName() {
 }
 
 function setBirthdate() {
+    const MIN_YEAR = 1900,
+        MAX_YEAR = 2002;
     currentYear = 2016;
     birthdate = PROMPT.question('\n What year were you born? ');
     age = (currentYear - birthdate);
-    if (age !==
+    if (birthdate < MIN_YEAR || birthdate > MAX_YEAR){
+        console.log(`${birthdate} is an incorrect value. Please try again.`);
+        return setBirthdate();
+    }
 }
 
 function setPremiumDate() {
     year = (2018);
     day = (25);
     month = (10);
-    //console.log(year, day, month);
 }
 
 function setNumOfFaults() {
+    const MIN_FAULT = 0,
+        MAX_FAULT = 4;
     numberOfFaults = PROMPT.question('\n How many at-fault accidents do you have within the last three years? ');
+    if (numberOfFaults < MIN_FAULT || numberOfFaults > MAX_FAULT){
+           console.log(`${numberOfFaults} is an  incorrect value. Please try again.`);
+           return setNumOfFaults();
+       }
+
+
+
 }
 
 function totalPrice() {
@@ -85,19 +97,23 @@ function totalPrice() {
     const MEDIUM_AGE = 0;
     const OLD_AGE = 30;
     const AT_FAULT = 50;
+    const YOUNG =15,
+        MIDDLE = 30,
+        MEDIUM = 45,
+        OLD = 60;
 
     if (age > 0){
-        if (age > 15 && age < 30){
+        if (age > YOUNG && age < MIDDLE){
             totalBill = YOUNG_AGE + basePrice + (numberOfFaults * AT_FAULT);
         }
-        else if (age > 30 && age < 45) {
+        else if (age > MIDDLE && age < MEDIUM) {
             totalBill = MIDDLE_AGE + basePrice + (numberOfFaults * AT_FAULT);
         }
-        else if (age > 45 && age < 60){
+        else if (age > MEDIUM && age < OLD){
             totalBill = MEDIUM_AGE + basePrice + (numberOfFaults * AT_FAULT);
         }
 
-        else if (age > 60){
+        else if (age > OLD){
             totalBill = OLD_AGE + basePrice + (numberOfFaults * AT_FAULT);
         }
     }
@@ -113,10 +129,8 @@ function verify() {
     process.stdout.write('\x1Bc');
     console.log(`\n Your policy number is\t${policyNumber}. `);
     console.log(`\n Your full name is\ ${customFirstName} ${customerLastName}.`);
-    //console.log(`\n Your first name is\ ${customFirstName}.`);
     console.log(`\n Your age is\ ${age}.`);
     console.log(`\n Your Premium date is ${month} ${day}, ${year}: `)
-    //console.log(`\n You have\ ${numberOfFaults} at fault accidents.`);
     console.log(`\n Your total bill is\ ${totalBill} dollars: `);
 }
 
